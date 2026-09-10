@@ -10,7 +10,7 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Custom High-End Cyber CSS Injection - Corrected parameter name
+# Custom High-End Cyber CSS Injection
 st.markdown("""
     <style>
     /* Premium Carbon Background */
@@ -39,12 +39,13 @@ st.markdown("""
         border-right: 1px solid #1e293b;
     }
     
-    /* Professional Form Overlays */
+    /* Professional Form Overlays with Dark Premium Theme */
     .stForm {
-        background-color: #1e293b !important;
-        border: 1px solid #334155 !important;
+        background-color: #111625 !important;
+        border: 1px solid #1e293b !important;
         border-radius: 16px !important;
         padding: 30px !important;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.5);
     }
     </style>
 """, unsafe_allow_html=True)
@@ -59,15 +60,15 @@ if "selected_plant" not in st.session_state:
 # MILESTONE 1: SECURITY GATE (LOGIN PAGE)
 # ==========================================
 if not st.session_state.authenticated:
-    # Center the login screen vertically using layout padding columns
-    _, col_center, _ = st.columns([1, 1.5, 1])
+    _, col_center, _ = st.columns([1, 1.2, 1])
     
     with col_center:
         st.write("")
         st.write("")
-        # Qiddiya Corporate Visual Header Anchor
-        st.image("https://seeklogo.com", width=220)
-        st.markdown("<h2 style='text-align: center; margin-bottom: 25px;'>Utility Infrastructure Log In</h2>", unsafe_allow_html=True)
+        st.write("")
+        # Clean typography replacement for broken image links
+        st.markdown("<h1 style='text-align: center; color: #38bdf8; font-family: monospace; letter-spacing: 2px; margin-bottom: 0px;'>QIDDIYA CITY</h1>", unsafe_allow_html=True)
+        st.markdown("<p style='text-align: center; color: #64748b; font-size: 14px; margin-bottom: 30px;'>UTILITY INFRASTRUCTURE HUB</p>", unsafe_allow_html=True)
         
         with st.form("login_form"):
             username = st.text_input("Username ID")
@@ -75,7 +76,6 @@ if not st.session_state.authenticated:
             submit = st.form_submit_button("Authenticate System", use_container_width=True)
             
             if submit:
-                # Basic authentication verification logic
                 if username.lower() == "admin" and password == "qiddiya2026":
                     st.session_state.authenticated = True
                     st.rerun()
@@ -87,10 +87,9 @@ if not st.session_state.authenticated:
 # MILESTONE 2: SYSTEM PLANT SELECTION HUB
 # ==========================================
 if st.session_state.selected_plant is None:
-    st.markdown("<h1 style='text-align: center; margin-top: 40px;'>Select Infrastructure Plant Network</h1>", unsafe_allowed_html=True)
-    st.markdown("<p style='text-align: center; color: #94a3b8; margin-bottom: 50px;'>Choose an active utility network node to view dashboards and metrics</p>", unsafe_allowed_html=True)
+    st.markdown("<h1 style='text-align: center; margin-top: 40px;'>Select Infrastructure Plant Network</h1>", unsafe_allow_html=True)
+    st.markdown("<p style='text-align: center; color: #94a3b8; margin-bottom: 50px;'>Choose an active utility network node to view dashboards and metrics</p>", unsafe_allow_html=True)
     
-    # 4-Column Operations Grid
     grid_stp, grid_irr, grid_dcp, grid_pot = st.columns(4)
     
     with grid_stp:
@@ -121,12 +120,10 @@ if st.session_state.selected_plant is None:
 # ==========================================
 if st.session_state.selected_plant == "DCP":
     
-    # Sidebar Header Navigation Branding
     with st.sidebar:
-        st.image("https://seeklogo.com", width=140)
-        st.markdown("<h4 style='color: #38bdf8; margin-bottom: 20px;'>DCP System Active</h4>", unsafe_allow_html=True)
+        st.markdown("<h2 style='color: #38bdf8; margin-bottom: 0px;'>QIDDIYA</h2>", unsafe_allow_html=True)
+        st.markdown("<p style='color: #64748b; font-size: 12px; margin-bottom: 20px;'>DCP NODE ACTIVE</p>", unsafe_allow_html=True)
         
-        # Premium Operational Option Controls Menu
         menu = st.radio(
             "Operations Menu",
             ["📊 Performance Dashboard", "📝 Add Plant Reading", "📥 Export Operational Data"]
@@ -137,12 +134,10 @@ if st.session_state.selected_plant == "DCP":
             st.session_state.authenticated = False
             st.rerun()
 
-    # SECTION A: THE METRICS DASHBOARD VIEW
     if menu == "📊 Performance Dashboard":
         st.title("❄️ Chiller Plant Performance Dashboard")
         st.markdown("<p style='color:#94a3b8;'>Real-time operational summaries for District Cooling Plant Network</p>", unsafe_allow_html=True)
         
-        # 4 Horizontal Side-by-Side Clean Layout Metrics Cards
         m1, m2, m3, m4 = st.columns(4)
         m1.metric(label="Latest Total Power", value="5,347.50 kW", delta="-12.4 kW")
         m2.metric(label="Latest Refrigeration", value="333.74 TR", delta="+8.2 TR")
@@ -151,14 +146,12 @@ if st.session_state.selected_plant == "DCP":
         
         st.markdown("### 📈 Operational Performance Trends")
         
-        # Interactive Simulated Monitoring Graph
         chart_data = pd.DataFrame(
             np.random.randn(20, 2) * [0.5, 10] + [16.02, 333.74],
             columns=['Efficiency (kW/TR)', 'Refrigeration (TR)']
         )
         st.line_chart(chart_data, height=350)
 
-    # SECTION B: DATA INPUT FORM VIEW
     elif menu == "📝 Add Plant Reading":
         st.title("📝 Log New Operator Readings")
         st.markdown("<p style='color:#94a3b8;'>Input precise field metrics directly into the shared cloud tables</p>", unsafe_allow_html=True)
@@ -178,18 +171,17 @@ if st.session_state.selected_plant == "DCP":
             if submit_data:
                 st.success("Log Entry verified! (Database pipeline update processed successfully)")
 
-    # SECTION C: DATA REPORT SHEET EXPORTS
     elif menu == "📥 Export Operational Data":
         st.title("📥 Operational Log sheets & Exports")
         st.markdown("<p style='color:#94a3b8;'>Review audit history or compile clean spreadsheets for tracking</p>", unsafe_allow_html=True)
         
-        # Fixed Table Display with complete array definition
+        # Array definition fully fixed and complete
         mock_logs = pd.DataFrame({
             'Timestamp': pd.date_range(start='2026-09-01', periods=5, freq='H'),
             'Total Power (kW)': [5340.2, 5345.1, 5342.8, 5346.0, 5347.5],
             'Refrigeration (TR)': [331.0, 332.5, 330.9, 333.0, 333.74],
             'Efficiency (kW/TR)': [16.13, 16.07, 16.14, 16.05, 16.02],
-            'Chillers Active': [18, 19, 18, 20, 20]
+            'Chillers Active': [20, 20, 19, 21, 20]
         })
         
         st.dataframe(mock_logs, use_container_width=True)
