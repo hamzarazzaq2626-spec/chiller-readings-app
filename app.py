@@ -66,7 +66,6 @@ if not st.session_state.authenticated:
         st.write("")
         st.write("")
         st.write("")
-        # Clean typography replacement for broken image links
         st.markdown("<h1 style='text-align: center; color: #38bdf8; font-family: monospace; letter-spacing: 2px; margin-bottom: 0px;'>QIDDIYA CITY</h1>", unsafe_allow_html=True)
         st.markdown("<p style='text-align: center; color: #64748b; font-size: 14px; margin-bottom: 30px;'>UTILITY INFRASTRUCTURE HUB</p>", unsafe_allow_html=True)
         
@@ -88,7 +87,7 @@ if not st.session_state.authenticated:
 # ==========================================
 if st.session_state.selected_plant is None:
     st.markdown("<h1 style='text-align: center; margin-top: 40px;'>Select Infrastructure Plant Network</h1>", unsafe_allow_html=True)
-    st.markdown("<p style='text-align: center; color: #94a3b8; margin-bottom: 50px;'>Choose an active utility network node to view dashboards and metrics</p>", unsafe_allow_html=True)
+    st.markdown("<p style='text-align: center; color: #94a3b8; margin-bottom: 50px;'>Choose an active utility network node to view dashboards and metrics</p>", unsafe_allowed_html=True)
     
     grid_stp, grid_irr, grid_dcp, grid_pot = st.columns(4)
     
@@ -100,7 +99,7 @@ if st.session_state.selected_plant is None:
     with grid_irr:
         st.markdown("<div style='background:#1e293b; padding:25px; border-radius:12px; border:1px solid #334155; text-align:center;'><h3>🌱 Irrigation</h3><p style='color:#64748b;'>Water Distribution Grid</p></div>", unsafe_allow_html=True)
         if st.button("Open Irrigation Network", key="btn_irr", use_container_width=True):
-            st.warning("Irrigation Network layout config is offline. Only DCP is active.")
+            st.warning("App for Irrigation Network config is offline. Only DCP is active.")
             
     with grid_dcp:
         st.markdown("<div style='background: linear-gradient(135deg, #0369a1 0%, #0f172a 100%); padding:25px; border-radius:12px; border:1px solid #0284c7; text-align:center;'><h3>❄️ DCP</h3><p style='color:#e2e8f0;'>District Cooling Plant</p></div>", unsafe_allow_html=True)
@@ -175,13 +174,13 @@ if st.session_state.selected_plant == "DCP":
         st.title("📥 Operational Log sheets & Exports")
         st.markdown("<p style='color:#94a3b8;'>Review audit history or compile clean spreadsheets for tracking</p>", unsafe_allow_html=True)
         
-        # Array definition fully fixed and complete
+        # Corrected dataset array with fixed values 
         mock_logs = pd.DataFrame({
-            'Timestamp': pd.date_range(start='2026-09-01', periods=5, freq='H'),
+            'Timestamp': pd.date_range(start='2026-09-01', periods=5, freq='h'),
             'Total Power (kW)': [5340.2, 5345.1, 5342.8, 5346.0, 5347.5],
             'Refrigeration (TR)': [331.0, 332.5, 330.9, 333.0, 333.74],
             'Efficiency (kW/TR)': [16.13, 16.07, 16.14, 16.05, 16.02],
-            'Chillers Active': [20, 20, 19, 21, 20]
+            'Chillers Active': [18, 19, 18, 20, 20]
         })
         
         st.dataframe(mock_logs, use_container_width=True)
