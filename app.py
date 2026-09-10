@@ -147,13 +147,13 @@ if st.session_state.selected_plant == "DCP":
         m1.metric(label="Latest Total Power", value="5,347.50 kW", delta="-12.4 kW")
         m2.metric(label="Latest Refrigeration", value="333.74 TR", delta="+8.2 TR")
         m3.metric(label="Plant Efficiency", value="16.02 kW/TR", delta="-0.45 kW/TR")
-        m4.metric(label="Chilller Units Running", value="20 / 24 Units", delta="Optimal Status")
+        m4.metric(label="Chiller Units Running", value="20 / 24 Units", delta="Optimal Status")
         
         st.markdown("### 📈 Operational Performance Trends")
         
         # Interactive Simulated Monitoring Graph
         chart_data = pd.DataFrame(
-            np.random.randn(20, 2) / [10, 5] + [16.02, 333.74],
+            np.random.randn(20, 2) * [0.5, 10] + [16.02, 333.74],
             columns=['Efficiency (kW/TR)', 'Refrigeration (TR)']
         )
         st.line_chart(chart_data, height=350)
@@ -189,7 +189,7 @@ if st.session_state.selected_plant == "DCP":
             'Total Power (kW)': [5340.2, 5345.1, 5342.8, 5346.0, 5347.5],
             'Refrigeration (TR)': [331.0, 332.5, 330.9, 333.0, 333.74],
             'Efficiency (kW/TR)': [16.13, 16.07, 16.14, 16.05, 16.02],
-            'Chillers Active': [19, 20, 19, 20, 20]
+            'Chillers Active': [18, 19, 18, 20, 20]
         })
         
         st.dataframe(mock_logs, use_container_width=True)
