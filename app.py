@@ -183,7 +183,7 @@ if st.session_state.selected_plant == "DCP":
         st.title("📥 Operational Log sheets & Exports")
         st.markdown("<p style='color:#94a3b8;'>Review audit history or compile clean spreadsheets for tracking</p>", unsafe_allowed_html=True)
         
-        # Mock Data Structure Table Display
+        # Fixed Table Display
         mock_logs = pd.DataFrame({
             'Timestamp': pd.date_range(start='2026-09-01', periods=5, freq='H'),
             'Total Power (kW)': [5340.2, 5345.1, 5342.8, 5346.0, 5347.5],
