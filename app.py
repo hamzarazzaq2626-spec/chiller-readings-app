@@ -134,7 +134,7 @@ if st.session_state.selected_plant == "DCP":
             st.rerun()
 
     if menu == "📊 Performance Dashboard":
-        st.title("❄️ Chiller Plant Performance Dashboard")
+        st.title("WPE Chiller Plant Performance Dashboard")
         st.markdown("<p style='color:#94a3b8;'>Real-time operational summaries for District Cooling Plant Network</p>", unsafe_allow_html=True)
         
         m1, m2, m3, m4 = st.columns(4)
