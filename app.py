@@ -15,28 +15,43 @@ st.markdown("""
     <style>
     /* Premium Carbon Background */
     .stApp {
-        background-color: #0e1117;
-        color: #e2e8f0;
-    }
-    
-    /* Elegant Metric Container Cards */
-    div[data-testid="stMetricContainer"] {
-        background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-        border: 1px solid #334155;
-        padding: 20px;
-        border-radius: 12px;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-        transition: transform 0.2s ease, border-color 0.2s ease;
-    }
-    div[data-testid="stMetricContainer"]:hover {
-        transform: translateY(-2px);
-        border-color: #38bdf8;
+        background-color: #0b0f19;
+        color: #f1f5f9;
     }
     
     /* Clean Sidebar Customization */
     section[data-testid="stSidebar"] {
         background-color: #0f172a !important;
         border-right: 1px solid #1e293b;
+    }
+    
+    /* Elegant Metric Container Cards Overhaul - Fix for Text Clipping */
+    div[data-testid="stMetricContainer"] {
+        background: linear-gradient(135deg, #111827 0%, #1f2937 100%);
+        border: 1px solid #374151;
+        padding: 24px 20px;
+        border-radius: 14px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+    div[data-testid="stMetricContainer"]:hover {
+        transform: translateY(-2px);
+        border-color: #0ea5e9;
+    }
+    
+    /* Adjusting Metric text sizing to prevent ellipsis dots */
+    div[data-testid="stMetricValue"] {
+        font-size: 2rem !important;
+        font-weight: 700 !important;
+        color: #f8fafc !important;
+        letter-spacing: -0.5px;
+    }
+    div[data-testid="stMetricLabel"] {
+        font-size: 0.85rem !important;
+        color: #94a3b8 !important;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 8px;
     }
     
     /* Professional Form Overlays with Dark Premium Theme */
@@ -134,22 +149,31 @@ if st.session_state.selected_plant == "DCP":
             st.rerun()
 
     if menu == "📊 Performance Dashboard":
-        st.title("WPE Chiller Plant Performance Dashboard")
-        st.markdown("<p style='color:#94a3b8;'>Real-time operational summaries for District Cooling Plant Network</p>", unsafe_allow_html=True)
+        st.title("❄️ Chiller Plant Performance Dashboard")
+        st.markdown("<p style='color:#94a3b8; margin-bottom: 30px;'>Real-time operational summaries for District Cooling Plant Network</p>", unsafe_allow_html=True)
         
+        # 4 Responsive Metrics Cards with clean layout widths
         m1, m2, m3, m4 = st.columns(4)
         m1.metric(label="Latest Total Power", value="5,347.50 kW", delta="-12.4 kW")
         m2.metric(label="Latest Refrigeration", value="333.74 TR", delta="+8.2 TR")
         m3.metric(label="Plant Efficiency", value="16.02 kW/TR", delta="-0.45 kW/TR")
-        m4.metric(label="Chiller Units Running", value="20 / 24 Units", delta="Optimal Status")
+        m4.metric(label="Chiller Units Running", value="20 / 24", delta="Optimal Status")
         
+        st.write("")
+        st.write("")
         st.markdown("### 📈 Operational Performance Trends")
         
-        chart_data = pd.DataFrame(
-            np.random.randn(20, 2) * [0.5, 10] + [16.02, 333.74],
-            columns=['Efficiency (kW/TR)', 'Refrigeration (TR)']
-        )
-        st.line_chart(chart_data, height=350)
+        # Generating a clean time series array for premium charting look
+        chart_timestamps = pd.date_range(start='2026-09-11 00:00', periods=24, freq='H')
+        
+        # Upgrading into elegant scannable Area Data Streams
+        chart_data = pd.DataFrame({
+            'Efficiency (kW/TR)': [16.02 + np.sin(i/3)*0.2 for i in range(24)],
+            'Refrigeration (TR)': [333.74 + np.cos(i/2)*5 for i in range(24)]
+        }, index=chart_timestamps)
+        
+        # Render clean premium area charts instead of plain single wires
+        st.area_chart(chart_data, height=350, use_container_width=True)
 
     elif menu == "📝 Add Plant Reading":
         st.title("📝 Log New Operator Readings")
@@ -174,20 +198,13 @@ if st.session_state.selected_plant == "DCP":
         st.title("📥 Operational Log sheets & Exports")
         st.markdown("<p style='color:#94a3b8;'>Review audit history or compile clean spreadsheets for tracking</p>", unsafe_allow_html=True)
         
-        # Completely fixed and verified log table structure
         mock_logs = pd.DataFrame({
             'Timestamp': pd.date_range(start='2026-09-01', periods=5, freq='h'),
             'Total Power (kW)': [5340.2, 5345.1, 5342.8, 5346.0, 5347.5],
             'Refrigeration (TR)': [331.0, 332.5, 330.9, 333.0, 333.74],
             'Efficiency (kW/TR)': [16.13, 16.07, 16.14, 16.05, 16.02],
-            'Chillers Active': [18, 19, 18, 20, 20]
+            'Chillers Active': [19, 20, 19, 20, 20]
         })
         
         st.dataframe(mock_logs, use_container_width=True)
         st.download_button(
-            label="Download Master Sheet (CSV Format)",
-            data=mock_logs.to_csv(index=False),
-            file_name="DCP_Live_Readings.csv",
-            mime="text/csv",
-            use_container_width=True
-        )
