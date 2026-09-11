@@ -87,7 +87,7 @@ if not st.session_state.authenticated:
 # ==========================================
 if st.session_state.selected_plant is None:
     st.markdown("<h1 style='text-align: center; margin-top: 40px;'>Select Infrastructure Plant Network</h1>", unsafe_allow_html=True)
-    st.markdown("<p style='text-align: center; color: #94a3b8; margin-bottom: 50px;'>Choose an active utility network node to view dashboards and metrics</p>", unsafe_allowed_html=True)
+    st.markdown("<p style='text-align: center; color: #94a3b8; margin-bottom: 50px;'>Choose an active utility network node to view dashboards and metrics</p>", unsafe_allow_html=True)
     
     grid_stp, grid_irr, grid_dcp, grid_pot = st.columns(4)
     
@@ -174,7 +174,7 @@ if st.session_state.selected_plant == "DCP":
         st.title("📥 Operational Log sheets & Exports")
         st.markdown("<p style='color:#94a3b8;'>Review audit history or compile clean spreadsheets for tracking</p>", unsafe_allow_html=True)
         
-        # Corrected dataset array with fixed values 
+        # Completely fixed and verified log table structure
         mock_logs = pd.DataFrame({
             'Timestamp': pd.date_range(start='2026-09-01', periods=5, freq='h'),
             'Total Power (kW)': [5340.2, 5345.1, 5342.8, 5346.0, 5347.5],
