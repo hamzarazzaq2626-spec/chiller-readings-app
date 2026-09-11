@@ -41,7 +41,7 @@ st.markdown("""
     
     /* Adjusting Metric text sizing to prevent ellipsis dots */
     div[data-testid="stMetricValue"] {
-        font-size: 2rem !important;
+        font-size: 1.8rem !important;
         font-weight: 700 !important;
         color: #f8fafc !important;
         letter-spacing: -0.5px;
@@ -152,7 +152,7 @@ if st.session_state.selected_plant == "DCP":
         st.title("❄️ Chiller Plant Performance Dashboard")
         st.markdown("<p style='color:#94a3b8; margin-bottom: 30px;'>Real-time operational summaries for District Cooling Plant Network</p>", unsafe_allow_html=True)
         
-        # 4 Responsive Metrics Cards with clean layout widths
+        # 4 Columns with updated fonts sizes to completely prevent text truncation
         m1, m2, m3, m4 = st.columns(4)
         m1.metric(label="Latest Total Power", value="5,347.50 kW", delta="-12.4 kW")
         m2.metric(label="Latest Refrigeration", value="333.74 TR", delta="+8.2 TR")
@@ -163,16 +163,13 @@ if st.session_state.selected_plant == "DCP":
         st.write("")
         st.markdown("### 📈 Operational Performance Trends")
         
-        # Generating a clean time series array for premium charting look
-        chart_timestamps = pd.date_range(start='2026-09-11 00:00', periods=24, freq='H')
+        chart_timestamps = pd.date_range(start='2026-09-11 00:00', periods=24, freq='h')
         
-        # Upgrading into elegant scannable Area Data Streams
         chart_data = pd.DataFrame({
             'Efficiency (kW/TR)': [16.02 + np.sin(i/3)*0.2 for i in range(24)],
             'Refrigeration (TR)': [333.74 + np.cos(i/2)*5 for i in range(24)]
         }, index=chart_timestamps)
         
-        # Render clean premium area charts instead of plain single wires
         st.area_chart(chart_data, height=350, use_container_width=True)
 
     elif menu == "📝 Add Plant Reading":
@@ -198,13 +195,18 @@ if st.session_state.selected_plant == "DCP":
         st.title("📥 Operational Log sheets & Exports")
         st.markdown("<p style='color:#94a3b8;'>Review audit history or compile clean spreadsheets for tracking</p>", unsafe_allow_html=True)
         
+        # Dataframe completely populated and closed
         mock_logs = pd.DataFrame({
             'Timestamp': pd.date_range(start='2026-09-01', periods=5, freq='h'),
             'Total Power (kW)': [5340.2, 5345.1, 5342.8, 5346.0, 5347.5],
             'Refrigeration (TR)': [331.0, 332.5, 330.9, 333.0, 333.74],
             'Efficiency (kW/TR)': [16.13, 16.07, 16.14, 16.05, 16.02],
-            'Chillers Active': [19, 20, 19, 20, 20]
+            'Chillers Active': [18, 19, 19, 20, 20]
         })
         
         st.dataframe(mock_logs, use_container_width=True)
+        
         st.download_button(
+            label="Download Master Sheet (CSV Format)",
+            data=mock_logs.to_csv(index=False),
+            file_name="DCP_Live_Readings.csv",
